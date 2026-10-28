@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego: Música Criolla - Santísima Niña María</title>
+    <title>Juego Interactivo Educativo</title>
+    <!-- Tailwind CSS para los estilos rápidos y responsivos -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tone.js para la generación de efectos de sonido -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <!-- Fuente Inter de Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -30,39 +33,61 @@
             50% { transform: scale(1.2); opacity: 1; }
             100% { transform: scale(1); opacity: 0; }
         }
+
+        /* Estilos para notificaciones custom */
+        #custom-notification {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(-20px);
+            opacity: 0;
+            pointer-events: none;
+        }
+        #custom-notification.show {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
     </style>
 </head>
-<body class="bg-gradient-to-br from-amber-900 to-orange-950 min-h-screen text-white flex items-center justify-center p-4">
+<body class="bg-gradient-to-br from-indigo-900 to-purple-950 min-h-screen text-white flex items-center justify-center p-4">
 
-    <div id="feedback-overlay" class="fixed inset-0 flex items-center justify-center pointer-events-none z-50 hidden">
-        <h2 id="feedback-text" class="text-5xl md:text-7xl font-black text-amber-400 drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] text-center tracking-wider"></h2>
+    <!-- Notificación Custom -->
+    <div id="custom-notification" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 bg-red-600 text-white px-6 py-3 rounded-xl shadow-2xl font-bold flex items-center gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+        <span id="notification-msg">Mensaje de error</span>
+        <button onclick="hideNotification()" class="ml-4 text-white hover:text-red-200">✖</button>
     </div>
 
-    <div class="max-w-3xl w-full bg-orange-50 text-gray-800 rounded-3xl shadow-2xl overflow-hidden fade-in relative">
+    <!-- Feedback visual animado en pantalla completa al responder -->
+    <div id="feedback-overlay" class="fixed inset-0 flex items-center justify-center pointer-events-none z-50 hidden">
+        <h2 id="feedback-text" class="text-5xl md:text-7xl font-black text-yellow-400 drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] text-center tracking-wider"></h2>
+    </div>
+
+    <div class="max-w-3xl w-full bg-slate-50 text-gray-800 rounded-3xl shadow-2xl overflow-hidden fade-in relative">
         
-        <header class="bg-orange-800 text-white p-6 text-center shadow-md relative z-10">
-            <h1 class="text-3xl font-extrabold tracking-tight">I.E. Santísima Niña María</h1>
-            <p class="text-orange-200 font-semibold mt-1 text-lg">Personal Social - 5to Secundaria</p>
-            <div class="inline-block bg-amber-500 text-amber-950 px-4 py-1 rounded-full font-bold mt-2 text-sm uppercase tracking-wide">
-                Tema: La Música Criolla Peruana
+        <header class="bg-indigo-800 text-white p-6 text-center shadow-md relative z-10">
+            <h1 class="text-3xl font-extrabold tracking-tight">Plantilla de Juego</h1>
+            <p class="text-indigo-200 font-semibold mt-1 text-lg">Materia - Grado</p>
+            <div class="inline-block bg-purple-500 text-purple-50 px-4 py-1 rounded-full font-bold mt-2 text-sm uppercase tracking-wide">
+                Tema: Inserta tu tema aquí
             </div>
         </header>
 
+        <!-- PANTALLA DE REGISTRO -->
         <div id="screen-register" class="p-8">
-            <h2 class="text-2xl font-bold text-center mb-6 text-orange-900">¡Bienvenida al Reto Criollo!</h2>
+            <h2 class="text-2xl font-bold text-center mb-6 text-indigo-900">¡Bienvenido al Reto!</h2>
             <p class="text-center text-gray-700 mb-8">Por favor, identifica tus datos para comenzar a jugar.</p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Grado</label>
-                    <select id="sel-grado" class="w-full p-3 border border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white outline-none transition">
+                    <select id="sel-grado" class="w-full p-3 border border-indigo-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white outline-none transition">
                         <option value="">Selecciona tu grado</option>
                         <option value="5">5to Secundaria</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Sección</label>
-                    <select id="sel-seccion" class="w-full p-3 border border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white outline-none transition">
+                    <select id="sel-seccion" class="w-full p-3 border border-indigo-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white outline-none transition">
                         <option value="">Selecciona tu sección</option>
                         <option value="A">A</option>
                         <option value="B">B</option>
@@ -72,70 +97,73 @@
             </div>
 
             <div class="mb-8">
-                <button id="btn-buscar-alumnas" class="w-full bg-amber-700 hover:bg-amber-800 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition transform hover:-translate-y-1">
+                <button id="btn-buscar-alumnas" class="w-full bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition transform hover:-translate-y-1">
                     Buscar mi nombre
                 </button>
             </div>
 
             <div id="container-nombre" class="hidden fade-in">
                 <label class="block text-sm font-semibold text-gray-700 mb-2">Tu Nombre</label>
-                <select id="sel-nombre" class="w-full p-3 border border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white outline-none transition mb-6">
+                <select id="sel-nombre" class="w-full p-3 border border-indigo-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white outline-none transition mb-6">
                     <option value="">Selecciona tu nombre</option>
                 </select>
 
-                <button id="btn-iniciar" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-4 rounded-xl shadow-lg text-lg transition transform hover:-translate-y-1">
+                <button id="btn-iniciar" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 px-4 rounded-xl shadow-lg text-lg transition transform hover:-translate-y-1">
                     ¡Comenzar el Juego!
                 </button>
             </div>
             
-            <div id="loading-msg" class="hidden text-center text-amber-700 font-semibold mt-4">Conectando con la base de datos...</div>
+            <div id="loading-msg" class="hidden text-center text-indigo-700 font-semibold mt-4">Conectando con la base de datos...</div>
         </div>
 
+        <!-- PANTALLA DE JUEGO -->
         <div id="screen-game" class="hidden p-8 fade-in relative">
             
             <div class="w-full bg-gray-300 rounded-full h-4 mb-6 relative overflow-hidden shadow-inner border border-gray-400">
-                <div id="timer-bar" class="bg-amber-500 h-4 rounded-full transition-all duration-1000 ease-linear" style="width: 100%"></div>
+                <div id="timer-bar" class="bg-indigo-500 h-4 rounded-full transition-all duration-1000 ease-linear" style="width: 100%"></div>
                 <div class="absolute inset-0 flex items-center justify-center text-xs font-bold text-gray-800" style="text-shadow: 0 0 2px white;" id="timer-text">20s</div>
             </div>
 
-            <div class="flex justify-between items-center mb-6 bg-orange-100 p-4 rounded-2xl border border-orange-200">
+            <div class="flex justify-between items-center mb-6 bg-indigo-100 p-4 rounded-2xl border border-indigo-200">
                 <div class="flex items-center gap-2">
-                    <span class="font-bold text-orange-900">Vidas:</span>
+                    <span class="font-bold text-indigo-900">Vidas:</span>
                     <div id="lives-container" class="flex gap-1 text-red-600 text-2xl">
                     </div>
                 </div>
                 <div class="text-right">
-                    <span class="font-bold text-orange-900">Puntos:</span>
-                    <span id="score-display" class="text-2xl font-black text-amber-700">0</span>
+                    <span class="font-bold text-indigo-900">Puntos:</span>
+                    <span id="score-display" class="text-2xl font-black text-indigo-700">0</span>
                 </div>
             </div>
 
             <div class="mb-8 text-center">
-                <span id="question-number" class="text-sm font-bold text-orange-700 uppercase tracking-wider">Pregunta 1</span>
+                <span id="question-number" class="text-sm font-bold text-purple-700 uppercase tracking-wider">Pregunta 1</span>
                 <h3 id="question-text" class="text-xl md:text-2xl font-bold text-gray-800 mt-2">¿Cargando pregunta...?</h3>
             </div>
 
             <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Los botones de opciones se insertarán aquí dinámicamente -->
             </div>
         </div>
 
+        <!-- PANTALLA DE RESULTADOS -->
         <div id="screen-results" class="hidden p-8 text-center fade-in">
-            <h2 id="end-title" class="text-3xl font-extrabold mb-4 text-orange-800">¡Juego Terminado!</h2>
+            <h2 id="end-title" class="text-3xl font-extrabold mb-4 text-indigo-800">¡Juego Terminado!</h2>
             <p class="text-gray-700 text-lg mb-6" id="end-message">Has perdido todas tus vidas o completaste las preguntas.</p>
             
-            <div class="bg-orange-100 border-4 border-amber-600 rounded-3xl p-6 inline-block mb-8">
-                <p class="text-sm text-orange-800 font-bold uppercase">Puntaje Final</p>
-                <p id="final-score" class="text-6xl font-black text-amber-800">0</p>
+            <div class="bg-indigo-100 border-4 border-indigo-600 rounded-3xl p-6 inline-block mb-8">
+                <p class="text-sm text-indigo-800 font-bold uppercase">Puntaje Final</p>
+                <p id="final-score" class="text-6xl font-black text-indigo-800">0</p>
             </div>
 
-            <h3 class="text-xl font-bold text-gray-800 mb-4">🏆 Ranking de las Mejores 🏆</h3>
-            <div class="bg-white rounded-xl border border-orange-200 p-4 max-h-64 overflow-y-auto mb-6 text-left">
-                <ul id="ranking-list" class="divide-y divide-orange-100">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">🏆 Ranking Top 🏆</h3>
+            <div class="bg-white rounded-xl border border-indigo-200 p-4 max-h-64 overflow-y-auto mb-6 text-left">
+                <ul id="ranking-list" class="divide-y divide-indigo-100">
                     <li class="py-2 text-center text-gray-500">Cargando ranking...</li>
                 </ul>
             </div>
 
-            <button onclick="location.reload()" class="bg-amber-700 hover:bg-amber-800 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition transform hover:-translate-y-1">
+            <button onclick="location.reload()" class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition transform hover:-translate-y-1">
                 Jugar de Nuevo
             </button>
         </div>
@@ -143,6 +171,21 @@
     </div>
 
     <script>
+        // === SISTEMA DE NOTIFICACIONES ===
+        let notificationTimeout;
+        function showNotification(message) {
+            const notif = document.getElementById('custom-notification');
+            document.getElementById('notification-msg').textContent = message;
+            notif.classList.add('show');
+            clearTimeout(notificationTimeout);
+            notificationTimeout = setTimeout(hideNotification, 4000);
+        }
+
+        function hideNotification() {
+            document.getElementById('custom-notification').classList.remove('show');
+        }
+
+        // === CONFIGURACIÓN DE AUDIO ===
         const correctSynth = new Tone.PolySynth(Tone.Synth).toDestination();
         const incorrectSynth = new Tone.Synth().toDestination();
         
@@ -159,6 +202,7 @@
             incorrectSynth.volume.value = -10;
         }
 
+        // === SINTESIS DE VOZ ===
         function speakQuestion(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
@@ -170,6 +214,7 @@
             }
         }
 
+        // === FEEDBACK VISUAL ===
         const frasesCorrectas = ["¡BIEN!", "¡GENIAL!", "¡SIGUE ASÍ!", "¡EXCELENTE!", "¡PERFECTO!"];
         const frasesIncorrectas = ["¡TÚ PUEDES!", "¡CONCÉNTRATE!", "¡CUIDADO!", "¡CASI!", "¡ATENTA!"];
 
@@ -181,7 +226,7 @@
             const fraseAzar = frases[Math.floor(Math.random() * frases.length)];
             
             textEl.textContent = fraseAzar;
-            textEl.className = `text-5xl md:text-7xl font-black drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] text-center tracking-wider feedback-pop ${isCorrect ? 'text-amber-400' : 'text-red-500'}`;
+            textEl.className = `text-5xl md:text-7xl font-black drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] text-center tracking-wider feedback-pop ${isCorrect ? 'text-yellow-400' : 'text-red-500'}`;
             
             overlay.classList.remove('hidden');
             
@@ -191,33 +236,16 @@
             }, 1000); 
         }
 
+        // === BANCO DE PREGUNTAS (PLANTILLA) ===
         const questionBank = [
-            { q: "¿Qué es la música criolla peruana?", options: ["Danza exclusiva de la selva amazónica", "Conjunto de expresiones musicales desarrolladas principalmente en la costa", "Música clásica importada de Europa", "Música instrumental de la región andina"], answer: 1 },
-            { q: "¿Qué principales tradiciones culturales confluyen en la música criolla?", options: ["Indígenas, españolas, africanas e inmigrantes", "Solo indígenas y españolas", "Asiáticas y europeas", "Norteamericanas y andinas"], answer: 0 },
-            { q: "¿En qué fecha se estableció celebrar el Día de la Canción Criolla en el Perú?", options: ["28 de julio", "24 de junio", "31 de octubre", "8 de octubre"], answer: 2 },
-            { q: "¿En qué año se estableció oficialmente el Día de la Canción Criolla?", options: ["1920", "1821", "1968", "1944"], answer: 3 },
-            { q: "¿Cuál es el instrumento de cuerda fundamental en el acompañamiento de muchas canciones criollas?", options: ["El violín", "El arpa", "La guitarra", "El charango"], answer: 2 },
-            { q: "¿Qué instrumento de percusión de origen afroperuano se convirtió en un símbolo de la música peruana?", options: ["El cajón peruano", "Los bongós", "La batería", "El timbal"], answer: 0 },
-            { q: "La palabra 'criollo' terminó asociándose a una identidad cultural vinculada especialmente a:", options: ["Las zonas rurales", "La ciudad de Lima y la costa", "La región andina", "Las fronteras del país"], answer: 1 },
-            { q: "¿Qué compositor incorporó temas sociales y cotidianos, contribuyendo a renovar el vals criollo?", options: ["Felipe Pinglo Alva", "Óscar Avilés", "Arturo 'Zambo' Cavero", "Augusto Polo Campos"], answer: 0 },
-            { q: "¿Qué compositora y cantante destacó por la riqueza poética de sus letras y presentar paisajes del Perú?", options: ["Lucha Reyes", "Chabuca Granda", "Susana Baca", "Eva Ayllón"], answer: 1 },
-            { q: "¿Cómo se describe al 'festejo' en el documento de estudio?", options: ["Canción de compás ternario nostálgica", "Danza elegante de salón", "Género afroperuano de carácter rítmico y festivo", "Ritmo lento y ceremonial"], answer: 2 },
-            { q: "¿Quién es el destacado guitarrista considerado una figura central por su estilo de acompañamiento?", options: ["Felipe Pinglo Alva", "Óscar Avilés", "Pepe Vásquez", "Nicomedes Santa Cruz"], answer: 1 },
-            { q: "¿Qué género criollo utiliza guitarra, cajón y palmas, y se caracteriza por ser una danza de pareja elegante?", options: ["La marinera limeña", "La polca", "El tondero", "El festejo"], answer: 0 },
-            { q: "¿Qué instrumento de percusión tradicional es utilizado especialmente en expresiones afroperuanas, aparte del cajón?", options: ["La marimba", "Las castañuelas", "La quijada de burro", "El güiro"], answer: 2 },
-            { q: "¿Qué función cumplen las 'palmas y voces' en la interpretación de la música criolla?", options: ["Afinar los instrumentos", "Marcar el ritmo y reforzar el carácter colectivo", "Distraer al público", "Reemplazar a la guitarra"], answer: 1 },
-            { q: "Además del vals, marinera, polca y festejo, ¿qué otras expresiones forman parte del repertorio criollo según el texto?", options: ["El huayno y la muliza", "La zamacueca y la canción costeña", "La cumbia y la chicha", "El yaraví y el pasillo"], answer: 1 },
-            { q: "Históricamente, ¿en qué período se encuentran las raíces donde se mezclaron las tradiciones que dieron origen a esta música?", options: ["En la época incaica", "En el período colonial", "En la guerra del Pacífico", "En el siglo XXI"], answer: 1 },
-            { q: "A comienzos del siglo XX, ¿por qué medios y espacios circularon principalmente las canciones criollas?", options: ["Exclusivamente en teatros de ópera", "Por internet y redes sociales", "Por barrios, callejones, peñas, teatros y radios", "Solo en ceremonias religiosas"], answer: 2 },
-            { q: "¿Por qué el texto afirma que la música criolla NO solo debe entenderse como entretenimiento?", options: ["Porque es aburrida para los jóvenes", "Porque es una forma de conservar memoria e identidad", "Porque solo habla de temas políticos", "Porque es de uso exclusivo escolar"], answer: 1 },
-            { q: "¿Qué característica principal se le atribuye a la 'polca criolla' en el material de estudio?", options: ["Género melancólico y triste", "Música de uso exclusivamente religioso", "Género de ritmo vivo, relacionado a la tradición popular urbana", "Danza acrobática sin instrumentos"], answer: 2 },
-            { q: "Según la 'Idea central' del documento, ¿qué permite comprender el estudio de la música criolla?", options: ["La economía moderna del Perú", "La diversidad, la historia y la identidad cultural", "Las técnicas de agricultura costeña", "La política internacional del siglo XX"], answer: 1 },
-            { q: "¿Qué aspecto asegura la importancia 'actual' de la música criolla frente a las nuevas generaciones?", options: ["La obligación de cantarla en los colegios", "Su capacidad de adaptarse y relacionarse con nuevas formas de creación", "Su prohibición en medios digitales", "Su mezcla obligatoria con el reguetón"], answer: 1 },
-            { q: "Según el texto, ¿qué temas solían abordar las letras del vals criollo?", options: ["Guerras y conquistas antiguas", "Amor, nostalgia, barrio y recuerdo", "Mitos de la selva amazónica", "Avances tecnológicos de la época"], answer: 1 }
+            { q: "Pregunta de ejemplo 1", options: ["Opción A", "Opción B (Correcta)", "Opción C", "Opción D"], answer: 1 },
+            { q: "Pregunta de ejemplo 2", options: ["Opción A (Correcta)", "Opción B", "Opción C", "Opción D"], answer: 0 },
+            { q: "Pregunta de ejemplo 3", options: ["Opción A", "Opción B", "Opción C (Correcta)", "Opción D"], answer: 2 },
         ];
 
-        // IMPORTANTE: REEMPLAZA ESTO CON LA NUEVA URL DE APPS SCRIPT
-        const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbxPVL9V4th78So7e1quGvokZ1iqOaawkt1SpwIzMDxtutRZOnnNBOZW1oVqstwedtii/execI"; 
+        // === COMUNICACIÓN CON GOOGLE SHEETS ===
+        // IMPORTANTE: REEMPLAZA ESTO CON LA URL DE APPS SCRIPT
+        const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbwdcrQ-bemYmm27hc0c41faMTHc6-Hw2sKqIdxfBZalxqftSu7urChlVudN8sOLM-m8/exec"; 
         
         const server = {
             withSuccessHandler: function(callback) {
@@ -229,36 +257,44 @@
                                 if (result.success) {
                                     callback(result.data || []); 
                                 } else {
-                                    alert("Error desde Google Sheets: " + result.message);
+                                    showNotification("Error: " + result.message, true);
                                     callback([]);
                                 }
                             })
                             .catch(error => { 
-                                alert("Aún no has configurado la URL de tu Apps Script o hay un problema de conexión.");
+                                showNotification("Error de conexión.", true);
                                 console.error('Error:', error); 
                                 callback([]); 
                             });
                     },
-                    saveScore: function(nombre, grado, seccion, puntaje) {
-                        // Primero obtenemos la IP de la alumna
-                        fetch('https://api.ipify.org?format=json')
-                            .then(res => res.json())
-                            .then(data => {
-                                const ip = data.ip;
-                                // Enviamos el puntaje junto con la IP a Google Apps Script
-                                fetch(`${GOOGLE_SHEETS_URL}?action=saveScore&nombre=${encodeURIComponent(nombre)}&grado=${grado}&seccion=${seccion}&puntaje=${puntaje}&ip=${ip}`)
-                                    .then(response => response.json())
-                                    .then(result => { callback(); })
-                                    .catch(error => { console.error('Error al guardar:', error); callback(); });
-                            })
-                            .catch(error => { 
-                                // Si hay un bloqueador que impide leer la IP, guardamos de todos modos
-                                console.error('No se pudo obtener la IP:', error);
-                                fetch(`${GOOGLE_SHEETS_URL}?action=saveScore&nombre=${encodeURIComponent(nombre)}&grado=${grado}&seccion=${seccion}&puntaje=${puntaje}&ip=Desconocida`)
-                                    .then(response => response.json())
-                                    .then(result => { callback(); })
-                                    .catch(err => { console.error('Error al guardar:', err); callback(); });
-                            });
+                    saveScore: async function(nombre, grado, seccion, puntaje) {
+                        let ipEstudiante = 'Desconocido';
+                        
+                        try {
+                            // Intento 1: Usar Cloudflare (rara vez bloqueado por colegios)
+                            const res = await fetch('https://1.1.1.1/cdn-cgi/trace');
+                            const text = await res.text();
+                            const match = text.match(/ip=(.*)/);
+                            if (match && match[1]) {
+                                ipEstudiante = match[1].trim();
+                            }
+                        } catch (e1) {
+                            console.warn('Fallo Cloudflare, intentando servidor secundario...', e1);
+                            try {
+                                // Intento 2: Plan B usando ipify
+                                const res2 = await fetch('https://api.ipify.org?format=json');
+                                const data = await res2.json();
+                                ipEstudiante = data.ip;
+                            } catch (e2) {
+                                console.error('Ambos servicios de IP fueron bloqueados.', e2);
+                            }
+                        }
+
+                        // Enviamos los datos a Google Sheets
+                        fetch(`${GOOGLE_SHEETS_URL}?action=saveScore&nombre=${encodeURIComponent(nombre)}&grado=${grado}&seccion=${seccion}&puntaje=${puntaje}&ip=${ipEstudiante}`)
+                            .then(response => response.json())
+                            .then(result => { callback(); })
+                            .catch(error => { console.error('Error al guardar datos:', error); callback(); });
                     },
                     getRanking: function() {
                         fetch(`${GOOGLE_SHEETS_URL}?action=getRanking`)
@@ -270,6 +306,7 @@
             }
         };
 
+        // === LÓGICA DEL JUEGO ===
         let currentQuestions = [];
         let currentIndex = 0;
         let lives = 5;
@@ -284,6 +321,7 @@
             game: document.getElementById('screen-game'),
             results: document.getElementById('screen-results')
         };
+        
         const elements = {
             selGrado: document.getElementById('sel-grado'),
             selSeccion: document.getElementById('sel-seccion'),
@@ -312,12 +350,13 @@
             screens[screenName].classList.remove('hidden');
         }
 
+        // Búsqueda de alumnos
         elements.btnBuscar.addEventListener('click', () => {
             const grado = elements.selGrado.value;
             const seccion = elements.selSeccion.value;
             
             if (!grado || !seccion) {
-                alert('Por favor selecciona tu grado y sección.');
+                showNotification('Por favor selecciona tu grado y sección.');
                 return;
             }
 
@@ -340,24 +379,20 @@
                     });
                     elements.containerNombre.classList.remove('hidden');
                 } else {
-                    alert('No se encontraron estudiantes para este grado y sección. Verifica tu hoja de cálculo.');
+                    showNotification('No se encontraron estudiantes para este grado y sección.');
                 }
             }).getStudents(grado, seccion);
         });
 
+        // Iniciar Juego
         elements.btnIniciar.addEventListener('click', () => {
             const nombre = elements.selNombre.value;
             if (!nombre) {
-                alert("Selecciona tu nombre para continuar.");
+                showNotification("Selecciona tu nombre para continuar.");
                 return;
             }
             
-            studentData = {
-                nombre: nombre,
-                grado: elements.selGrado.value,
-                seccion: elements.selSeccion.value
-            };
-
+            studentData = { nombre: nombre, grado: elements.selGrado.value, seccion: elements.selSeccion.value };
             startGame();
         });
 
@@ -402,7 +437,6 @@
             timerInterval = setInterval(() => {
                 timeLeft--;
                 updateTimerUI();
-                
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
                     handleTimeout();
@@ -415,11 +449,8 @@
             elements.timerBar.style.width = `${percentage}%`;
             elements.timerText.textContent = `${timeLeft}s`;
             
-            if (timeLeft <= 5) {
-                elements.timerBar.classList.replace('bg-amber-500', 'bg-red-500');
-            } else {
-                elements.timerBar.classList.replace('bg-red-500', 'bg-amber-500');
-            }
+            if (timeLeft <= 5) elements.timerBar.classList.replace('bg-indigo-500', 'bg-red-500');
+            else elements.timerBar.classList.replace('bg-red-500', 'bg-indigo-500');
         }
 
         function handleTimeout() {
@@ -431,19 +462,15 @@
             buttons.forEach(b => b.disabled = true);
             
             const q = currentQuestions[currentIndex];
-            buttons[q.answer].classList.replace('border-orange-200', 'border-amber-600');
-            buttons[q.answer].classList.replace('bg-white', 'bg-amber-100');
+            buttons[q.answer].classList.replace('border-indigo-200', 'border-purple-600');
+            buttons[q.answer].classList.replace('bg-white', 'bg-purple-100');
             
             lives--;
             updateLivesUI();
             
             setTimeout(() => {
-                if (lives <= 0) {
-                    endGame(false);
-                } else {
-                    currentIndex++;
-                    loadQuestion();
-                }
+                if (lives <= 0) endGame(false);
+                else { currentIndex++; loadQuestion(); }
             }, 2000);
         }
 
@@ -461,7 +488,7 @@
             
             q.options.forEach((opt, index) => {
                 const btn = document.createElement('button');
-                btn.className = "bg-white border-2 border-orange-200 text-gray-800 hover:border-amber-600 hover:bg-orange-50 font-semibold py-4 px-6 rounded-xl shadow-sm transition transform hover:-translate-y-1 text-left w-full";
+                btn.className = "bg-white border-2 border-indigo-200 text-gray-800 hover:border-purple-600 hover:bg-indigo-50 font-semibold py-4 px-6 rounded-xl shadow-sm transition transform hover:-translate-y-1 text-left w-full";
                 btn.textContent = opt;
                 btn.onclick = () => checkAnswer(index, btn);
                 elements.optionsContainer.appendChild(btn);
@@ -484,32 +511,28 @@
             if (isCorrect) {
                 playCorrectSound();
                 showFeedback(true);
-                btnElement.classList.replace('border-orange-200', 'border-amber-600');
-                btnElement.classList.replace('bg-white', 'bg-amber-500');
+                btnElement.classList.replace('border-indigo-200', 'border-purple-600');
+                btnElement.classList.replace('bg-white', 'bg-purple-500');
                 btnElement.classList.replace('text-gray-800', 'text-white');
                 score += 10;
                 updateScoreUI();
             } else {
                 playIncorrectSound();
                 showFeedback(false);
-                btnElement.classList.replace('border-orange-200', 'border-red-500');
+                btnElement.classList.replace('border-indigo-200', 'border-red-500');
                 btnElement.classList.replace('bg-white', 'bg-red-500');
                 btnElement.classList.replace('text-gray-800', 'text-white');
                 
-                buttons[q.answer].classList.replace('border-orange-200', 'border-amber-600');
-                buttons[q.answer].classList.replace('bg-white', 'bg-orange-100');
+                buttons[q.answer].classList.replace('border-indigo-200', 'border-purple-600');
+                buttons[q.answer].classList.replace('bg-white', 'bg-indigo-100');
                 
                 lives--;
                 updateLivesUI();
             }
 
             setTimeout(() => {
-                if (lives <= 0) {
-                    endGame(false);
-                } else {
-                    currentIndex++;
-                    loadQuestion();
-                }
+                if (lives <= 0) endGame(false);
+                else { currentIndex++; loadQuestion(); }
             }, 1500);
         }
 
@@ -520,9 +543,9 @@
             elements.finalScore.textContent = score;
             
             if(won) {
-                elements.endTitle.textContent = "¡Felicidades, terminaste todo!";
-                elements.endTitle.className = "text-3xl font-extrabold mb-4 text-amber-700";
-                elements.endMessage.textContent = "Demostraste un gran conocimiento sobre la Música Criolla Peruana.";
+                elements.endTitle.textContent = "¡Felicidades, completaste el reto!";
+                elements.endTitle.className = "text-3xl font-extrabold mb-4 text-purple-700";
+                elements.endMessage.textContent = "Excelente trabajo demostrando tus conocimientos.";
             } else {
                 elements.endTitle.textContent = "¡Se acabaron tus vidas!";
                 elements.endTitle.className = "text-3xl font-extrabold mb-4 text-red-600";
@@ -541,7 +564,6 @@
             
             server.withSuccessHandler((ranking) => {
                 elements.rankingList.innerHTML = '';
-                
                 if(ranking.length === 0) {
                     elements.rankingList.innerHTML = '<li class="py-2 text-center text-gray-500">Aún no hay estudiantes en el ranking.</li>';
                     return;
@@ -551,10 +573,10 @@
                     const li = document.createElement('li');
                     li.className = "py-3 flex justify-between items-center";
                     
-                    let badgeColor = "bg-orange-100 text-orange-800";
+                    let badgeColor = "bg-indigo-100 text-indigo-800";
                     if(index === 0) badgeColor = "bg-yellow-400 text-yellow-900";
                     else if(index === 1) badgeColor = "bg-gray-300 text-gray-800";
-                    else if(index === 2) badgeColor = "bg-orange-300 text-orange-900";
+                    else if(index === 2) badgeColor = "bg-purple-300 text-purple-900";
                     
                     li.innerHTML = `
                         <div class="flex items-center gap-3">
@@ -564,7 +586,7 @@
                                 <p class="text-xs text-gray-500">${r.grado}° "${r.seccion}"</p>
                             </div>
                         </div>
-                        <div class="font-black text-amber-700 text-lg">${r.puntaje} pts</div>
+                        <div class="font-black text-indigo-700 text-lg">${r.puntaje} pts</div>
                     `;
                     elements.rankingList.appendChild(li);
                 });
