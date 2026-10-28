@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego: Reforma Agraria - Santísima Niña María</title>
+    <title>Juego: Música Criolla - Santísima Niña María</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -32,41 +32,37 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-green-800 to-teal-900 min-h-screen text-white flex items-center justify-center p-4">
+<body class="bg-gradient-to-br from-amber-900 to-orange-950 min-h-screen text-white flex items-center justify-center p-4">
 
     <div id="feedback-overlay" class="fixed inset-0 flex items-center justify-center pointer-events-none z-50 hidden">
-        <h2 id="feedback-text" class="text-5xl md:text-7xl font-black text-yellow-400 drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] text-center tracking-wider"></h2>
+        <h2 id="feedback-text" class="text-5xl md:text-7xl font-black text-amber-400 drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] text-center tracking-wider"></h2>
     </div>
 
-    <div class="max-w-3xl w-full bg-white text-gray-800 rounded-3xl shadow-2xl overflow-hidden fade-in relative">
+    <div class="max-w-3xl w-full bg-orange-50 text-gray-800 rounded-3xl shadow-2xl overflow-hidden fade-in relative">
         
-        <header class="bg-green-700 text-white p-6 text-center shadow-md relative z-10">
+        <header class="bg-orange-800 text-white p-6 text-center shadow-md relative z-10">
             <h1 class="text-3xl font-extrabold tracking-tight">I.E. Santísima Niña María</h1>
-            <p class="text-green-100 font-semibold mt-1 text-lg">Ciencias Sociales</p>
-            <div class="inline-block bg-yellow-400 text-green-900 px-4 py-1 rounded-full font-bold mt-2 text-sm uppercase tracking-wide">
-                Tema: La Reforma Agraria
+            <p class="text-orange-200 font-semibold mt-1 text-lg">Personal Social - 5to Secundaria</p>
+            <div class="inline-block bg-amber-500 text-amber-950 px-4 py-1 rounded-full font-bold mt-2 text-sm uppercase tracking-wide">
+                Tema: La Música Criolla Peruana
             </div>
         </header>
 
         <div id="screen-register" class="p-8">
-            <h2 class="text-2xl font-bold text-center mb-6 text-green-800">¡Bienvenida al Reto!</h2>
-            <p class="text-center text-gray-600 mb-8">Por favor, identifica tus datos para comenzar a jugar.</p>
+            <h2 class="text-2xl font-bold text-center mb-6 text-orange-900">¡Bienvenida al Reto Criollo!</h2>
+            <p class="text-center text-gray-700 mb-8">Por favor, identifica tus datos para comenzar a jugar.</p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Grado</label>
-                    <select id="sel-grado" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-gray-50 outline-none transition">
+                    <select id="sel-grado" class="w-full p-3 border border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white outline-none transition">
                         <option value="">Selecciona tu grado</option>
-                        <option value="1">1ro Secundaria</option>
-                        <option value="2">2do Secundaria</option>
-                        <option value="3">3ro Secundaria</option>
-                        <option value="4">4to Secundaria</option>
                         <option value="5">5to Secundaria</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">Sección</label>
-                    <select id="sel-seccion" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-gray-50 outline-none transition">
+                    <select id="sel-seccion" class="w-full p-3 border border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white outline-none transition">
                         <option value="">Selecciona tu sección</option>
                         <option value="A">A</option>
                         <option value="B">B</option>
@@ -76,46 +72,46 @@
             </div>
 
             <div class="mb-8">
-                <button id="btn-buscar-alumnas" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition transform hover:-translate-y-1">
+                <button id="btn-buscar-alumnas" class="w-full bg-amber-700 hover:bg-amber-800 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition transform hover:-translate-y-1">
                     Buscar mi nombre
                 </button>
             </div>
 
             <div id="container-nombre" class="hidden fade-in">
                 <label class="block text-sm font-semibold text-gray-700 mb-2">Tu Nombre</label>
-                <select id="sel-nombre" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-gray-50 outline-none transition mb-6">
+                <select id="sel-nombre" class="w-full p-3 border border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white outline-none transition mb-6">
                     <option value="">Selecciona tu nombre</option>
                 </select>
 
-                <button id="btn-iniciar" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-4 rounded-xl shadow-lg text-lg transition transform hover:-translate-y-1">
+                <button id="btn-iniciar" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-4 rounded-xl shadow-lg text-lg transition transform hover:-translate-y-1">
                     ¡Comenzar el Juego!
                 </button>
             </div>
             
-            <div id="loading-msg" class="hidden text-center text-blue-600 font-semibold mt-4">Conectando con la base de datos...</div>
+            <div id="loading-msg" class="hidden text-center text-amber-700 font-semibold mt-4">Conectando con la base de datos...</div>
         </div>
 
         <div id="screen-game" class="hidden p-8 fade-in relative">
             
-            <div class="w-full bg-gray-200 rounded-full h-4 mb-6 relative overflow-hidden shadow-inner border border-gray-300">
-                <div id="timer-bar" class="bg-blue-500 h-4 rounded-full transition-all duration-1000 ease-linear" style="width: 100%"></div>
+            <div class="w-full bg-gray-300 rounded-full h-4 mb-6 relative overflow-hidden shadow-inner border border-gray-400">
+                <div id="timer-bar" class="bg-amber-500 h-4 rounded-full transition-all duration-1000 ease-linear" style="width: 100%"></div>
                 <div class="absolute inset-0 flex items-center justify-center text-xs font-bold text-gray-800" style="text-shadow: 0 0 2px white;" id="timer-text">20s</div>
             </div>
 
-            <div class="flex justify-between items-center mb-6 bg-gray-100 p-4 rounded-2xl">
+            <div class="flex justify-between items-center mb-6 bg-orange-100 p-4 rounded-2xl border border-orange-200">
                 <div class="flex items-center gap-2">
-                    <span class="font-bold text-gray-700">Vidas:</span>
-                    <div id="lives-container" class="flex gap-1 text-red-500 text-2xl">
+                    <span class="font-bold text-orange-900">Vidas:</span>
+                    <div id="lives-container" class="flex gap-1 text-red-600 text-2xl">
                     </div>
                 </div>
                 <div class="text-right">
-                    <span class="font-bold text-gray-700">Puntos:</span>
-                    <span id="score-display" class="text-2xl font-black text-green-700">0</span>
+                    <span class="font-bold text-orange-900">Puntos:</span>
+                    <span id="score-display" class="text-2xl font-black text-amber-700">0</span>
                 </div>
             </div>
 
             <div class="mb-8 text-center">
-                <span id="question-number" class="text-sm font-bold text-blue-600 uppercase tracking-wider">Pregunta 1</span>
+                <span id="question-number" class="text-sm font-bold text-orange-700 uppercase tracking-wider">Pregunta 1</span>
                 <h3 id="question-text" class="text-xl md:text-2xl font-bold text-gray-800 mt-2">¿Cargando pregunta...?</h3>
             </div>
 
@@ -124,22 +120,22 @@
         </div>
 
         <div id="screen-results" class="hidden p-8 text-center fade-in">
-            <h2 id="end-title" class="text-3xl font-extrabold mb-4 text-green-800">¡Juego Terminado!</h2>
-            <p class="text-gray-600 text-lg mb-6" id="end-message">Has perdido todas tus vidas o completaste las preguntas.</p>
+            <h2 id="end-title" class="text-3xl font-extrabold mb-4 text-orange-800">¡Juego Terminado!</h2>
+            <p class="text-gray-700 text-lg mb-6" id="end-message">Has perdido todas tus vidas o completaste las preguntas.</p>
             
-            <div class="bg-green-100 border-4 border-green-500 rounded-3xl p-6 inline-block mb-8">
-                <p class="text-sm text-green-700 font-bold uppercase">Puntaje Final</p>
-                <p id="final-score" class="text-6xl font-black text-green-800">0</p>
+            <div class="bg-orange-100 border-4 border-amber-600 rounded-3xl p-6 inline-block mb-8">
+                <p class="text-sm text-orange-800 font-bold uppercase">Puntaje Final</p>
+                <p id="final-score" class="text-6xl font-black text-amber-800">0</p>
             </div>
 
             <h3 class="text-xl font-bold text-gray-800 mb-4">🏆 Ranking de las Mejores 🏆</h3>
-            <div class="bg-gray-50 rounded-xl border border-gray-200 p-4 max-h-64 overflow-y-auto mb-6 text-left">
-                <ul id="ranking-list" class="divide-y divide-gray-200">
+            <div class="bg-white rounded-xl border border-orange-200 p-4 max-h-64 overflow-y-auto mb-6 text-left">
+                <ul id="ranking-list" class="divide-y divide-orange-100">
                     <li class="py-2 text-center text-gray-500">Cargando ranking...</li>
                 </ul>
             </div>
 
-            <button onclick="location.reload()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition transform hover:-translate-y-1">
+            <button onclick="location.reload()" class="bg-amber-700 hover:bg-amber-800 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition transform hover:-translate-y-1">
                 Jugar de Nuevo
             </button>
         </div>
@@ -166,7 +162,7 @@
         function speakQuestion(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
-                const cleanText = text.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
+                const cleanText = text.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s¿?]/g, '');
                 const utterance = new SpeechSynthesisUtterance(cleanText);
                 utterance.lang = 'es-ES'; 
                 utterance.rate = 1.1; 
@@ -185,7 +181,7 @@
             const fraseAzar = frases[Math.floor(Math.random() * frases.length)];
             
             textEl.textContent = fraseAzar;
-            textEl.className = `text-5xl md:text-7xl font-black drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] text-center tracking-wider feedback-pop ${isCorrect ? 'text-green-400' : 'text-orange-500'}`;
+            textEl.className = `text-5xl md:text-7xl font-black drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] text-center tracking-wider feedback-pop ${isCorrect ? 'text-amber-400' : 'text-red-500'}`;
             
             overlay.classList.remove('hidden');
             
@@ -196,34 +192,32 @@
         }
 
         const questionBank = [
-            { q: "¿Qué presidente peruano promulgó la Ley de Reforma Agraria en 1969?", options: ["Juan Velasco Alvarado", "Fernando Belaúnde Terry", "Alberto Fujimori", "Alan García"], answer: 0 },
-            { q: "¿Cuál fue el objetivo principal de la Reforma Agraria en el Perú?", options: ["Industrializar el país rápidamente", "Redistribuir la tierra y eliminar el latifundismo", "Promover la inversión extranjera en la costa", "Privatizar todas las empresas agrícolas"], answer: 1 },
-            { q: "¿Qué famosa frase acompañó la promulgación de la Reforma Agraria?", options: ["¡El Perú es primero!", "¡Campesino, el patrón ya no comerá más de tu pobreza!", "¡Tierra y libertad para todos!", "¡La agricultura es el futuro!"], answer: 1 },
-            { q: "¿Qué tipo de propiedad buscaba eliminar principalmente la Reforma Agraria?", options: ["Minifundios", "Haciendas y Latifundios", "Cooperativas", "Comunidades Campesinas"], answer: 1 },
-            { q: "¿En qué fecha exacta se promulgó la Ley de Reforma Agraria en Perú?", options: ["24 de junio de 1969", "28 de julio de 1968", "1 de mayo de 1970", "3 de octubre de 1968"], answer: 0 },
-            { q: "¿Qué tipo de organizaciones asociativas se crearon para administrar las tierras expropiadas en la costa?", options: ["SAIS (Sociedades Agrícolas de Interés Social)", "CAPS (Cooperativas Agrarias de Producción)", "ONGs", "Empresas Comunales"], answer: 1 },
-            { q: "¿Qué organizaciones asociativas se crearon principalmente en la sierra peruana?", options: ["CAPS", "SAIS (Sociedades Agrícolas de Interés Social)", "Sindicatos agrarios", "Gremios ganaderos"], answer: 1 },
-            { q: "¿A qué sector de los terratenientes afectó económicamente la expropiación en la costa norte?", options: ["A los barones del azúcar", "A los productores de papa", "A los mineros artesanales", "A los ganaderos de alpacas"], answer: 0 },
-            { q: "Antes de Velasco, ¿qué presidente promulgó una ley de reforma agraria más limitada en 1964?", options: ["Manuel Prado", "Fernando Belaúnde Terry", "Oscar R. Benavides", "José Bustamante y Rivero"], answer: 1 },
-            { q: "¿Qué significa el acrónimo SINAMOS, creado durante el gobierno de Velasco?", options: ["Sistema Nacional de Apoyo a la Movilización Social", "Sindicato Nacional de Agricultores y Mineros", "Sociedad Industrial de Nuevos Agricultores", "Sistema Interno de Normas Agrarias"], answer: 0 },
-            { q: "Desde una perspectiva económica a largo plazo, uno de los problemas de la Reforma Agraria fue:", options: ["El exceso de inversión privada", "La falta de capacitación técnica y capitalización de las cooperativas", "La sobreproducción de alimentos", "El enriquecimiento masivo de los campesinos"], answer: 1 },
-            { q: "¿Qué documento se entregaba a los expropiados como forma de pago por sus tierras?", options: ["Dólares en efectivo", "Bonos de la Reforma Agraria", "Acciones mineras", "Lingotes de plata"], answer: 1 },
-            { q: "¿En qué consistía el sistema de 'enganche' que existía en las haciendas antes de la reforma?", options: ["Un sistema de riego automatizado", "Adelanto de dinero al campesino para obligarlo a trabajar para pagar la deuda", "Un tipo de arado tradicional", "La asociación libre de campesinos"], answer: 1 },
-            { q: "¿Cómo se llamaba al campesino que trabajaba gratuitamente para el hacendado a cambio del uso de una pequeña parcela?", options: ["Yanacona o colono", "Obrero asalariado", "Burgués", "Capataz"], answer: 0 },
-            { q: "A pesar de la expropiación, ¿qué institución mantuvo gran parte de su poder y tierras durante la reforma?", options: ["Las fuerzas armadas", "La Iglesia Católica en algunas zonas", "La burguesía industrial (la reforma no afectó industria directamente)", "Los gremios petroleros"], answer: 1 },
-            { q: "¿Qué sector agrícola era el más moderno y capitalista en el Perú antes de 1969?", options: ["La agricultura de subsistencia en la sierra", "Las haciendas azucareras y algodoneras de la costa", "Las plantaciones cocaleras en la selva", "La ganadería en el altiplano"], answer: 1 },
-            { q: "¿Qué día se celebra actualmente el 'Día del Campesino', instaurado en lugar del 'Día del Indio'?", options: ["24 de junio", "1 de mayo", "8 de octubre", "30 de agosto"], answer: 0 },
-            { q: "¿Qué consecuencia demográfica indirecta aceleró el proceso histórico de la época (aunque la reforma intentó frenarla)?", options: ["La migración masiva del campo a la ciudad", "El despoblamiento del Perú", "La inmigración europea masiva", "El traslado de limeños a la selva"], answer: 0 },
-            { q: "El golpe de estado de Juan Velasco Alvarado ocurrió el 3 de octubre de 1968, derrocando a...", options: ["Víctor Raúl Haya de la Torre", "Fernando Belaúnde Terry", "Manuel Odría", "Ricardo Pérez Godoy"], answer: 1 },
-            { q: "¿Qué significa 'latifundio'?", options: ["Pequeña porción de tierra agrícola", "Gran extensión de tierra agrícola en manos de un solo propietario", "Tierra propiedad del Estado", "Cooperativa de campesinos independientes"], answer: 1 },
-            { q: "En la región de La Convención (Cusco), ¿quién lideró importantes movilizaciones campesinas previas a la reforma?", options: ["Hugo Blanco", "Abimael Guzmán", "Víctor Raúl Haya de la Torre", "Luis Banchero Rossi"], answer: 0 },
-            { q: "¿Qué pasó con las haciendas azucareras expropiadas de Casa Grande, Cartavio y Casagrande?", options: ["Fueron abandonadas", "Se convirtieron en Cooperativas Agrarias de Producción (CAP)", "Se vendieron a empresas chilenas", "Fueron parceladas en miles de minifundios individuales"], answer: 1 },
-            { q: "Una de las críticas a las SAIS y CAPs creadas por la reforma fue que...", options: ["Fueron demasiado exitosas y capitalistas", "Sufrieron de burocratización y corrupción administrativa", "Solo admitían a mujeres", "Exportaban demasiado alimento"], answer: 1 },
-            { q: "¿Cuál fue el impacto de la Reforma Agraria en las comunidades indígenas reconocidas?", options: ["Fueron expropiadas totalmente", "Fueron beneficiarias y en algunos casos reestructuradas", "Fueron obligadas a migrar a la costa", "Se convirtieron en empresas privadas"], answer: 1 },
-            { q: "¿Bajo qué plan de gobierno se ejecutó la Reforma Agraria de Velasco?", options: ["Plan Inca", "Plan Túpac Amaru", "Plan Perú", "Plan de Acción Inmediata"], answer: 0 }
+            { q: "¿Qué es la música criolla peruana?", options: ["Danza exclusiva de la selva amazónica", "Conjunto de expresiones musicales desarrolladas principalmente en la costa", "Música clásica importada de Europa", "Música instrumental de la región andina"], answer: 1 },
+            { q: "¿Qué principales tradiciones culturales confluyen en la música criolla?", options: ["Indígenas, españolas, africanas e inmigrantes", "Solo indígenas y españolas", "Asiáticas y europeas", "Norteamericanas y andinas"], answer: 0 },
+            { q: "¿En qué fecha se estableció celebrar el Día de la Canción Criolla en el Perú?", options: ["28 de julio", "24 de junio", "31 de octubre", "8 de octubre"], answer: 2 },
+            { q: "¿En qué año se estableció oficialmente el Día de la Canción Criolla?", options: ["1920", "1821", "1968", "1944"], answer: 3 },
+            { q: "¿Cuál es el instrumento de cuerda fundamental en el acompañamiento de muchas canciones criollas?", options: ["El violín", "El arpa", "La guitarra", "El charango"], answer: 2 },
+            { q: "¿Qué instrumento de percusión de origen afroperuano se convirtió en un símbolo de la música peruana?", options: ["El cajón peruano", "Los bongós", "La batería", "El timbal"], answer: 0 },
+            { q: "La palabra 'criollo' terminó asociándose a una identidad cultural vinculada especialmente a:", options: ["Las zonas rurales", "La ciudad de Lima y la costa", "La región andina", "Las fronteras del país"], answer: 1 },
+            { q: "¿Qué compositor incorporó temas sociales y cotidianos, contribuyendo a renovar el vals criollo?", options: ["Felipe Pinglo Alva", "Óscar Avilés", "Arturo 'Zambo' Cavero", "Augusto Polo Campos"], answer: 0 },
+            { q: "¿Qué compositora y cantante destacó por la riqueza poética de sus letras y presentar paisajes del Perú?", options: ["Lucha Reyes", "Chabuca Granda", "Susana Baca", "Eva Ayllón"], answer: 1 },
+            { q: "¿Cómo se describe al 'festejo' en el documento de estudio?", options: ["Canción de compás ternario nostálgica", "Danza elegante de salón", "Género afroperuano de carácter rítmico y festivo", "Ritmo lento y ceremonial"], answer: 2 },
+            { q: "¿Quién es el destacado guitarrista considerado una figura central por su estilo de acompañamiento?", options: ["Felipe Pinglo Alva", "Óscar Avilés", "Pepe Vásquez", "Nicomedes Santa Cruz"], answer: 1 },
+            { q: "¿Qué género criollo utiliza guitarra, cajón y palmas, y se caracteriza por ser una danza de pareja elegante?", options: ["La marinera limeña", "La polca", "El tondero", "El festejo"], answer: 0 },
+            { q: "¿Qué instrumento de percusión tradicional es utilizado especialmente en expresiones afroperuanas, aparte del cajón?", options: ["La marimba", "Las castañuelas", "La quijada de burro", "El güiro"], answer: 2 },
+            { q: "¿Qué función cumplen las 'palmas y voces' en la interpretación de la música criolla?", options: ["Afinar los instrumentos", "Marcar el ritmo y reforzar el carácter colectivo", "Distraer al público", "Reemplazar a la guitarra"], answer: 1 },
+            { q: "Además del vals, marinera, polca y festejo, ¿qué otras expresiones forman parte del repertorio criollo según el texto?", options: ["El huayno y la muliza", "La zamacueca y la canción costeña", "La cumbia y la chicha", "El yaraví y el pasillo"], answer: 1 },
+            { q: "Históricamente, ¿en qué período se encuentran las raíces donde se mezclaron las tradiciones que dieron origen a esta música?", options: ["En la época incaica", "En el período colonial", "En la guerra del Pacífico", "En el siglo XXI"], answer: 1 },
+            { q: "A comienzos del siglo XX, ¿por qué medios y espacios circularon principalmente las canciones criollas?", options: ["Exclusivamente en teatros de ópera", "Por internet y redes sociales", "Por barrios, callejones, peñas, teatros y radios", "Solo en ceremonias religiosas"], answer: 2 },
+            { q: "¿Por qué el texto afirma que la música criolla NO solo debe entenderse como entretenimiento?", options: ["Porque es aburrida para los jóvenes", "Porque es una forma de conservar memoria e identidad", "Porque solo habla de temas políticos", "Porque es de uso exclusivo escolar"], answer: 1 },
+            { q: "¿Qué característica principal se le atribuye a la 'polca criolla' en el material de estudio?", options: ["Género melancólico y triste", "Música de uso exclusivamente religioso", "Género de ritmo vivo, relacionado a la tradición popular urbana", "Danza acrobática sin instrumentos"], answer: 2 },
+            { q: "Según la 'Idea central' del documento, ¿qué permite comprender el estudio de la música criolla?", options: ["La economía moderna del Perú", "La diversidad, la historia y la identidad cultural", "Las técnicas de agricultura costeña", "La política internacional del siglo XX"], answer: 1 },
+            { q: "¿Qué aspecto asegura la importancia 'actual' de la música criolla frente a las nuevas generaciones?", options: ["La obligación de cantarla en los colegios", "Su capacidad de adaptarse y relacionarse con nuevas formas de creación", "Su prohibición en medios digitales", "Su mezcla obligatoria con el reguetón"], answer: 1 },
+            { q: "Según el texto, ¿qué temas solían abordar las letras del vals criollo?", options: ["Guerras y conquistas antiguas", "Amor, nostalgia, barrio y recuerdo", "Mitos de la selva amazónica", "Avances tecnológicos de la época"], answer: 1 }
         ];
 
-        const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbz7SI3KxLskS9MHx-rVGe9Qhelx2sa0ep4cW4XobMmza_6SjVVdsgR2QJsEr3qDp_cn/exec"; 
+        // IMPORTANTE: REEMPLAZA ESTO CON LA NUEVA URL DE APPS SCRIPT
+        const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbxPVL9V4th78So7e1quGvokZ1iqOaawkt1SpwIzMDxtutRZOnnNBOZW1oVqstwedtii/execI"; 
         
         const server = {
             withSuccessHandler: function(callback) {
@@ -240,16 +234,31 @@
                                 }
                             })
                             .catch(error => { 
-                                alert("Error de conexión. ¿Actualizaste tu URL en la variable GOOGLE_SHEETS_URL?");
+                                alert("Aún no has configurado la URL de tu Apps Script o hay un problema de conexión.");
                                 console.error('Error:', error); 
                                 callback([]); 
                             });
                     },
                     saveScore: function(nombre, grado, seccion, puntaje) {
-                        fetch(`${GOOGLE_SHEETS_URL}?action=saveScore&nombre=${encodeURIComponent(nombre)}&grado=${grado}&seccion=${seccion}&puntaje=${puntaje}`)
-                            .then(response => response.json())
-                            .then(result => { callback(); })
-                            .catch(error => { console.error('Error:', error); callback(); });
+                        // Primero obtenemos la IP de la alumna
+                        fetch('https://api.ipify.org?format=json')
+                            .then(res => res.json())
+                            .then(data => {
+                                const ip = data.ip;
+                                // Enviamos el puntaje junto con la IP a Google Apps Script
+                                fetch(`${GOOGLE_SHEETS_URL}?action=saveScore&nombre=${encodeURIComponent(nombre)}&grado=${grado}&seccion=${seccion}&puntaje=${puntaje}&ip=${ip}`)
+                                    .then(response => response.json())
+                                    .then(result => { callback(); })
+                                    .catch(error => { console.error('Error al guardar:', error); callback(); });
+                            })
+                            .catch(error => { 
+                                // Si hay un bloqueador que impide leer la IP, guardamos de todos modos
+                                console.error('No se pudo obtener la IP:', error);
+                                fetch(`${GOOGLE_SHEETS_URL}?action=saveScore&nombre=${encodeURIComponent(nombre)}&grado=${grado}&seccion=${seccion}&puntaje=${puntaje}&ip=Desconocida`)
+                                    .then(response => response.json())
+                                    .then(result => { callback(); })
+                                    .catch(err => { console.error('Error al guardar:', err); callback(); });
+                            });
                     },
                     getRanking: function() {
                         fetch(`${GOOGLE_SHEETS_URL}?action=getRanking`)
@@ -265,22 +274,10 @@
         let currentIndex = 0;
         let lives = 5;
         let score = 0;
-        let studentData = { nombre: '', grado: '', seccion: '', ip: 'Obteniendo IP...' };
+        let studentData = { nombre: '', grado: '', seccion: '' };
         
         let timeLeft = 20;
         let timerInterval = null;
-
-        async function fetchUserIP() {
-            try {
-                const response = await fetch('https://api.ipify.org?format=json');
-                const data = await response.json();
-                studentData.ip = data.ip || 'No detectada';
-            } catch (err) {
-                console.warn('No se pudo obtener la IP automáticamente:', err);
-                studentData.ip = 'IP no disponible';
-            }
-        }
-        fetchUserIP();
 
         const screens = {
             register: document.getElementById('screen-register'),
@@ -343,7 +340,7 @@
                     });
                     elements.containerNombre.classList.remove('hidden');
                 } else {
-                    alert('No se encontraron estudiantes para este grado y sección en la Hoja de Cálculo. Verifica que tu hoja se llama "List".');
+                    alert('No se encontraron estudiantes para este grado y sección. Verifica tu hoja de cálculo.');
                 }
             }).getStudents(grado, seccion);
         });
@@ -419,9 +416,9 @@
             elements.timerText.textContent = `${timeLeft}s`;
             
             if (timeLeft <= 5) {
-                elements.timerBar.classList.replace('bg-blue-500', 'bg-red-500');
+                elements.timerBar.classList.replace('bg-amber-500', 'bg-red-500');
             } else {
-                elements.timerBar.classList.replace('bg-red-500', 'bg-blue-500');
+                elements.timerBar.classList.replace('bg-red-500', 'bg-amber-500');
             }
         }
 
@@ -434,8 +431,8 @@
             buttons.forEach(b => b.disabled = true);
             
             const q = currentQuestions[currentIndex];
-            buttons[q.answer].classList.replace('border-gray-200', 'border-green-500');
-            buttons[q.answer].classList.replace('bg-white', 'bg-green-100');
+            buttons[q.answer].classList.replace('border-orange-200', 'border-amber-600');
+            buttons[q.answer].classList.replace('bg-white', 'bg-amber-100');
             
             lives--;
             updateLivesUI();
@@ -464,7 +461,7 @@
             
             q.options.forEach((opt, index) => {
                 const btn = document.createElement('button');
-                btn.className = "bg-white border-2 border-gray-200 text-gray-700 hover:border-blue-500 hover:bg-blue-50 font-semibold py-4 px-6 rounded-xl shadow-sm transition transform hover:-translate-y-1 text-left w-full";
+                btn.className = "bg-white border-2 border-orange-200 text-gray-800 hover:border-amber-600 hover:bg-orange-50 font-semibold py-4 px-6 rounded-xl shadow-sm transition transform hover:-translate-y-1 text-left w-full";
                 btn.textContent = opt;
                 btn.onclick = () => checkAnswer(index, btn);
                 elements.optionsContainer.appendChild(btn);
@@ -487,20 +484,20 @@
             if (isCorrect) {
                 playCorrectSound();
                 showFeedback(true);
-                btnElement.classList.replace('border-gray-200', 'border-green-500');
-                btnElement.classList.replace('bg-white', 'bg-green-500');
-                btnElement.classList.replace('text-gray-700', 'text-white');
+                btnElement.classList.replace('border-orange-200', 'border-amber-600');
+                btnElement.classList.replace('bg-white', 'bg-amber-500');
+                btnElement.classList.replace('text-gray-800', 'text-white');
                 score += 10;
                 updateScoreUI();
             } else {
                 playIncorrectSound();
                 showFeedback(false);
-                btnElement.classList.replace('border-gray-200', 'border-red-500');
+                btnElement.classList.replace('border-orange-200', 'border-red-500');
                 btnElement.classList.replace('bg-white', 'bg-red-500');
-                btnElement.classList.replace('text-gray-700', 'text-white');
+                btnElement.classList.replace('text-gray-800', 'text-white');
                 
-                buttons[q.answer].classList.replace('border-gray-200', 'border-green-500');
-                buttons[q.answer].classList.replace('bg-white', 'bg-green-100');
+                buttons[q.answer].classList.replace('border-orange-200', 'border-amber-600');
+                buttons[q.answer].classList.replace('bg-white', 'bg-orange-100');
                 
                 lives--;
                 updateLivesUI();
@@ -524,8 +521,8 @@
             
             if(won) {
                 elements.endTitle.textContent = "¡Felicidades, terminaste todo!";
-                elements.endTitle.className = "text-3xl font-extrabold mb-4 text-blue-600";
-                elements.endMessage.textContent = "Demostraste un gran conocimiento sobre la Reforma Agraria.";
+                elements.endTitle.className = "text-3xl font-extrabold mb-4 text-amber-700";
+                elements.endMessage.textContent = "Demostraste un gran conocimiento sobre la Música Criolla Peruana.";
             } else {
                 elements.endTitle.textContent = "¡Se acabaron tus vidas!";
                 elements.endTitle.className = "text-3xl font-extrabold mb-4 text-red-600";
@@ -536,7 +533,7 @@
             
             server.withSuccessHandler(() => {
                 loadRanking();
-            }).saveScore(studentData.nombre, studentData.grado, studentData.seccion, score, studentData.ip);
+            }).saveScore(studentData.nombre, studentData.grado, studentData.seccion, score);
         }
 
         function loadRanking() {
@@ -546,7 +543,7 @@
                 elements.rankingList.innerHTML = '';
                 
                 if(ranking.length === 0) {
-                    elements.rankingList.innerHTML = '<li class="py-2 text-center text-gray-500">Aún no hay jugadoras en el ranking.</li>';
+                    elements.rankingList.innerHTML = '<li class="py-2 text-center text-gray-500">Aún no hay estudiantes en el ranking.</li>';
                     return;
                 }
                 
@@ -554,7 +551,7 @@
                     const li = document.createElement('li');
                     li.className = "py-3 flex justify-between items-center";
                     
-                    let badgeColor = "bg-gray-200 text-gray-700";
+                    let badgeColor = "bg-orange-100 text-orange-800";
                     if(index === 0) badgeColor = "bg-yellow-400 text-yellow-900";
                     else if(index === 1) badgeColor = "bg-gray-300 text-gray-800";
                     else if(index === 2) badgeColor = "bg-orange-300 text-orange-900";
@@ -567,7 +564,7 @@
                                 <p class="text-xs text-gray-500">${r.grado}° "${r.seccion}"</p>
                             </div>
                         </div>
-                        <div class="font-black text-green-600 text-lg">${r.puntaje} pts</div>
+                        <div class="font-black text-amber-700 text-lg">${r.puntaje} pts</div>
                     `;
                     elements.rankingList.appendChild(li);
                 });
